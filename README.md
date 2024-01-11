@@ -1,0 +1,1 @@
+# RAGround_pure_function
