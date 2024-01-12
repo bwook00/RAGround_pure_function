@@ -55,15 +55,15 @@ async def mono_t5_rerank_pure(query: str, contents: List[str], scores: List[floa
                               model, device, tokenizer, token_false_id, token_true_id) -> Tuple[List[str]]:
     """
     Rerank a list of contents based on their relevance to a query using MonoT5.
-    :param query:
-    :param contents:
-    :param scores:
-    :param ids:
-    :param model:
-    :param device:
-    :param tokenizer:
-    :param token_false_id:
-    :param token_true_id:
+    :param query: The query to use for reranking
+    :param contents: The list of contents to rerank
+    :param scores: The list of scores retrieved from the initial ranking
+    :param ids: The list of ids retrieved from the initial ranking
+    :param model: The MonoT5 model to use for reranking
+    :param device: The device to run the model on (GPU if available, otherwise CPU)
+    :param tokenizer: The tokenizer to use for the model
+    :param token_false_id: The id of the token used by the model to represent a false prediction
+    :param token_true_id: The id of the token used by the model to represent a true prediction
     :return: tuple of lists containing the reranked contents, ids, and scores
     """
     model.to(device)
@@ -87,12 +87,12 @@ async def mono_t5_rerank_pure(query: str, contents: List[str], scores: List[floa
     probs = torch.nn.functional.softmax(logits, dim=-1)[:, 1]  # Get the probability of the 'true' token
 
     # Create a list of tuples pairing each content with its relevance probability
-    content_probs_pairs = list(zip(contents, ids, probs.tolist()))
+    content_ids_probs = list(zip(contents, ids, probs.tolist()))
 
     # Sort the list of pairs based on the relevance score in descending order
-    sorted_content_probs_pairs = sorted(content_probs_pairs, key=lambda x: x[2], reverse=True)
+    sorted_content_ids_probs = sorted(content_ids_probs, key=lambda x: x[2], reverse=True)
 
-    return tuple(map(list, zip(*sorted_content_probs_pairs)))
+    return tuple(map(list, zip(*sorted_content_ids_probs)))
 
 
 if __name__ == '__main__':
