@@ -52,14 +52,20 @@ if __name__ == '__main__':
     first_contents = result[0][0]
     second_contents = result[1][0]
 
+    # result[0]:
     # [(['Paris is the capital of France.', 'havertz is suck at soccer', 'NomaDamas is Great Team'],
     # [UUID('67975b30-a212-4a5b-9e76-89a4a3e9f37a'), UUID('ae3a1a94-a78c-4a0a-8835-960f42dc154f'),
     # UUID('51642d38-ecf6-426e-9f86-ace92a527888')], [0.5542998909950256, 0.17034107446670532, 0.1374085247516632]),
+
+    # result[1]:
     # (['Newjeans has 5 members.', 'LA is a country in the United States.', 'i am hungry'],
     # [UUID('62911b03-98c5-4425-900c-99c86bb44121'), UUID('04585fa4-0e0e-4dc4-ba69-712cc94b5bc4'),
     # UUID('9b94c8c5-492a-4128-99e4-87881ea6b6a6')], [0.5379835367202759, 0.13214750587940216, 0.11529212445020676])]
-    print(result)
-    # ['Paris is the capital of France.', 'NomaDamas is Great Team', 'havertz is suck at soccer']
+
     print(first_contents)
-    # ['Newjeans has 5 members.', 'LA is a country in the United States.', 'i am hungry']
+    # ['Paris is the capital of France.', 'NomaDamas is Great Team', 'havertz is suck at soccer']
+    assert first_contents[0] == "Paris is the capital of France."
+
     print(second_contents)
+    # ['Newjeans has 5 members.', 'LA is a country in the United States.', 'i am hungry']
+    assert second_contents[0] == "Newjeans has 5 members."
